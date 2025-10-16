@@ -3,7 +3,7 @@
 A responsive, accessible web application for tracking student expenses with advanced regex search, multi-currency support, and comprehensive budget management.
 
 ## Live Demo
-[GitHub Pages URL]
+https://goketech.github.io/student-finance-tracker/
 
 ## Features
 - ✅ Add, edit, delete transactions
