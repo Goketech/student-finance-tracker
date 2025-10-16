@@ -1,0 +1,47 @@
+[
+  {
+    "id": "txn_sample_1",
+    "description": "Coffee at Starbucks",
+    "amount": 4.5,
+    "category": "Food",
+    "date": "2025-01-15",
+    "createdAt": "2025-01-15T10:30:00.000Z",
+    "updatedAt": "2025-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "txn_sample_2",
+    "description": "Textbook - Introduction to Computer Science",
+    "amount": 89.99,
+    "category": "Books",
+    "date": "2025-01-14",
+    "createdAt": "2025-01-14T14:20:00.000Z",
+    "updatedAt": "2025-01-14T14:20:00.000Z"
+  },
+  {
+    "id": "txn_sample_3",
+    "description": "Bus ticket monthly pass",
+    "amount": 55.0,
+    "category": "Transport",
+    "date": "2025-01-10",
+    "createdAt": "2025-01-10T08:15:00.000Z",
+    "updatedAt": "2025-01-10T08:15:00.000Z"
+  },
+  {
+    "id": "txn_sample_4",
+    "description": "Movie tickets",
+    "amount": 24.0,
+    "category": "Entertainment",
+    "date": "2025-01-12",
+    "createdAt": "2025-01-12T19:45:00.000Z",
+    "updatedAt": "2025-01-12T19:45:00.000Z"
+  },
+  {
+    "id": "txn_sample_5",
+    "description": "Lunch at campus cafeteria",
+    "amount": 12.5,
+    "category": "Food",
+    "date": "2025-01-16",
+    "createdAt": "2025-01-16T12:00:00.000Z",
+    "updatedAt": "2025-01-16T12:00:00.000Z"
+  }
+]

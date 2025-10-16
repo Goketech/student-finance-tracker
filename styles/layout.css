@@ -1,0 +1,91 @@
+.table-responsive {
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  .header-inner {
+    position: relative;
+  }
+  .main-nav {
+    position: absolute;
+    top: 56px;
+    right: 16px;
+    left: 16px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 8px;
+    display: none;
+    z-index: 1000;
+  }
+  .main-nav.open {
+    display: block;
+  }
+  .main-nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  #nav-toggle {
+    display: inline-flex;
+  }
+  .hamburger-lines {
+    width: 20px;
+    height: 2px;
+    background: var(--color-text);
+    position: relative;
+    display: inline-block;
+  }
+  .hamburger-lines::before,
+  .hamburger-lines::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 20px;
+    height: 2px;
+    background: var(--color-text);
+  }
+  .hamburger-lines::before {
+    top: -6px;
+  }
+  .hamburger-lines::after {
+    top: 6px;
+  }
+  .main-nav a {
+    display: block;
+    padding: 8px;
+  }
+
+  #transactions-table {
+    display: none;
+  }
+  #transactions-cards[hidden] {
+    display: none !important;
+  }
+  #transactions-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 768px) {
+  #nav-toggle {
+    display: none;
+  }
+  .main-nav {
+    position: static;
+    display: block;
+    border: none;
+    padding: 0;
+  }
+  .main-nav ul {
+    flex-direction: row;
+    gap: 12px;
+  }
+  #transactions-table {
+    display: table;
+  }
+  #transactions-cards {
+    display: none !important;
+  }
+}

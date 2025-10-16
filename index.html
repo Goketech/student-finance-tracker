@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Student Finance Tracker</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/layout.css" />
+    <link rel="stylesheet" href="styles/theme.css" />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <header class="site-header" role="banner">
+      <div class="container header-inner">
+        <h1 class="app-title">Student Finance Tracker</h1>
+        <button
+          id="nav-toggle"
+          class="icon-button hamburger"
+          aria-label="Open navigation"
+          aria-controls="primary-nav"
+          aria-expanded="false"
+          title="Menu"
+          aria-haspopup="true"
+        >
+          <span class="hamburger-lines" aria-hidden="true"></span>
+        </button>
+        <nav id="primary-nav" aria-label="Main navigation" class="main-nav">
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#transactions">Transactions</a></li>
+            <li><a href="#form">Add/Edit</a></li>
+            <li><a href="#settings">Settings</a></li>
+          </ul>
+        </nav>
+        <button
+          id="theme-toggle"
+          class="icon-button"
+          aria-label="Toggle dark mode"
+          title="Toggle theme"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="about" class="section">
+        <div class="container">
+          <h2>About</h2>
+          <p>
+            A responsive, accessible web app to track student expenses with
+            regex search, multi-currency support, and budget management.
+          </p>
+          <p>
+            <a
+              id="github-link"
+              href="https://github.com/Goketech"
+              rel="noopener noreferrer"
+              >GitHub</a
+            >
+            ·
+            <a href="mailto:m.akanni@alustudent.com">m.akanni@alustudent.com</a>
+          </p>
+        </div>
+      </section>
+
+      <section id="dashboard" class="section">
+        <div class="container">
+          <h2>Dashboard</h2>
+          <div class="stats-grid" aria-live="polite">
+            <div class="stat-card" id="stat-total-count" tabindex="0">
+              <div class="stat-label">Total Transactions</div>
+              <div class="stat-value" aria-live="polite">0</div>
+            </div>
+            <div class="stat-card" id="stat-total-spent" tabindex="0">
+              <div class="stat-label">Total Spent</div>
+              <div class="stat-value" aria-live="polite">$0.00</div>
+            </div>
+            <div class="stat-card" id="stat-top-category" tabindex="0">
+              <div class="stat-label">Top Category</div>
+              <div class="stat-value" aria-live="polite">—</div>
+            </div>
+            <div class="stat-card" id="stat-7day" tabindex="0">
+              <div class="stat-label">7-Day Trend</div>
+              <div
+                class="chart"
+                role="img"
+                aria-label="Spending over last 7 days"
+              ></div>
+            </div>
+          </div>
+
+          <div class="budget-cap">
+            <label for="budget-cap-input">Monthly Budget Cap</label>
+            <div class="budget-row">
+              <input
+                id="budget-cap-input"
+                type="number"
+                min="0"
+                step="0.01"
+                inputmode="decimal"
+                aria-describedby="budget-cap-help"
+              />
+              <button id="budget-cap-save" class="button">Set Cap</button>
+            </div>
+            <div id="budget-cap-help" class="help-text">
+              Set your monthly limit to track progress.
+            </div>
+            <div class="progress" aria-label="Budget usage">
+              <div
+                id="budget-progress"
+                class="progress-bar"
+                style="width: 0%"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0"
+                role="progressbar"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="transactions" class="section">
+        <div class="container">
+          <h2>Transactions</h2>
+
+          <div class="toolbar">
+            <div class="search-group">
+              <label for="search-input">Regex Search</label>
+              <input
+                id="search-input"
+                type="text"
+                placeholder="Enter regex pattern"
+                aria-describedby="search-help"
+              />
+              <div class="inline">
+                <label
+                  ><input type="checkbox" id="case-toggle" /> Case
+                  sensitive</label
+                >
+                <button id="search-clear" class="button-secondary">
+                  Clear
+                </button>
+              </div>
+              <div id="search-help" class="help-text">
+                Examples: \.\d{2}\b, (coffee|tea|juice|soda), \b(\w+)\s+\1\b
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table
+              id="transactions-table"
+              aria-describedby="transactions-caption"
+            >
+              <caption id="transactions-caption">
+                Your transactions list
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <button class="th-sort" data-col="date" aria-sort="none">
+                      <span class="sort-label">Date</span>
+                      <span class="sort-icon" aria-hidden="true">
+                        <svg
+                          width="12"
+                          height="16"
+                          viewBox="0 0 12 16"
+                          fill="none"
+                        >
+                          <path d="M6 3L10 7H2L6 3Z" class="sort-arrow-up" />
+                          <path
+                            d="M6 13L2 9H10L6 13Z"
+                            class="sort-arrow-down"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </th>
+                  <th scope="col">
+                    <button
+                      class="th-sort"
+                      data-col="description"
+                      aria-sort="none"
+                    >
+                      <span class="sort-label">Description</span>
+                      <span class="sort-icon" aria-hidden="true">
+                        <svg
+                          width="12"
+                          height="16"
+                          viewBox="0 0 12 16"
+                          fill="none"
+                        >
+                          <path d="M6 3L10 7H2L6 3Z" class="sort-arrow-up" />
+                          <path
+                            d="M6 13L2 9H10L6 13Z"
+                            class="sort-arrow-down"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </th>
+                  <th scope="col">
+                    <button class="th-sort" data-col="amount" aria-sort="none">
+                      <span class="sort-label">Amount</span>
+                      <span class="sort-icon" aria-hidden="true">
+                        <svg
+                          width="12"
+                          height="16"
+                          viewBox="0 0 12 16"
+                          fill="none"
+                        >
+                          <path d="M6 3L10 7H2L6 3Z" class="sort-arrow-up" />
+                          <path
+                            d="M6 13L2 9H10L6 13Z"
+                            class="sort-arrow-down"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </th>
+                  <th scope="col">
+                    <button
+                      class="th-sort"
+                      data-col="category"
+                      aria-sort="none"
+                    >
+                      <span class="sort-label">Category</span>
+                      <span class="sort-icon" aria-hidden="true">
+                        <svg
+                          width="12"
+                          height="16"
+                          viewBox="0 0 12 16"
+                          fill="none"
+                        >
+                          <path d="M6 3L10 7H2L6 3Z" class="sort-arrow-up" />
+                          <path
+                            d="M6 13L2 9H10L6 13Z"
+                            class="sort-arrow-down"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </th>
+                  <th scope="col" class="actions-col">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="transactions-tbody"></tbody>
+            </table>
+            <div id="transactions-cards" class="cards-mobile" hidden></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="form" class="section">
+        <div class="container">
+          <h2>Add / Edit Transaction</h2>
+          <form id="transaction-form" novalidate>
+            <input type="hidden" id="txn-id" />
+
+            <div class="form-row">
+              <label for="description">Description*</label>
+              <input
+                id="description"
+                type="text"
+                aria-required="true"
+                aria-invalid="false"
+                aria-describedby="description-error description-warn"
+              />
+              <span
+                id="description-error"
+                class="error-message"
+                role="alert"
+              ></span>
+              <span
+                id="description-warn"
+                class="warning-message"
+                aria-live="polite"
+              ></span>
+            </div>
+
+            <div class="form-row">
+              <label for="amount">Amount*</label>
+              <input
+                id="amount"
+                type="text"
+                inputmode="decimal"
+                placeholder="e.g., 12.50"
+                aria-required="true"
+                aria-invalid="false"
+                aria-describedby="amount-error"
+              />
+              <span id="amount-error" class="error-message" role="alert"></span>
+            </div>
+
+            <div class="form-row">
+              <label for="category">Category*</label>
+              <input
+                id="category"
+                type="text"
+                list="category-list"
+                placeholder="Food"
+                aria-required="true"
+                aria-invalid="false"
+                aria-describedby="category-error"
+              />
+              <datalist id="category-list"></datalist>
+              <span
+                id="category-error"
+                class="error-message"
+                role="alert"
+              ></span>
+            </div>
+
+            <div class="form-row">
+              <label for="date">Date*</label>
+              <input
+                id="date"
+                type="date"
+                placeholder="YYYY-MM-DD"
+                aria-required="true"
+                aria-invalid="false"
+                aria-describedby="date-error"
+              />
+              <span id="date-error" class="error-message" role="alert"></span>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="button">Save</button>
+              <button type="button" id="form-reset" class="button-secondary">
+                Reset
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="settings" class="section">
+        <div class="container">
+          <h2>Settings</h2>
+          <div class="settings-grid">
+            <div class="settings-card">
+              <h3>Currency</h3>
+              <div class="form-row">
+                <label for="active-currency">Active Currency</label>
+                <select
+                  id="active-currency"
+                  aria-label="Active currency"
+                ></select>
+              </div>
+              <div class="form-row">
+                <label for="rate-usd">USD</label>
+                <input
+                  id="rate-usd"
+                  type="number"
+                  step="0.0001"
+                  min="0"
+                  value="1"
+                  aria-label="USD rate"
+                />
+              </div>
+              <div class="form-row">
+                <label for="rate-eur">EUR</label>
+                <input
+                  id="rate-eur"
+                  type="number"
+                  step="0.0001"
+                  min="0"
+                  value="0.92"
+                  aria-label="EUR rate"
+                />
+              </div>
+              <div class="form-row">
+                <label for="rate-gbp">GBP</label>
+                <input
+                  id="rate-gbp"
+                  type="number"
+                  step="0.0001"
+                  min="0"
+                  value="0.79"
+                  aria-label="GBP rate"
+                />
+              </div>
+              <div class="form-actions">
+                <button id="update-rates" class="button">Update Rates</button>
+              </div>
+            </div>
+
+            <div class="settings-card">
+              <h3>Data</h3>
+              <div class="form-actions">
+                <button id="export-json" class="button-secondary">
+                  Export JSON
+                </button>
+                <label class="button file-label" for="import-json"
+                  >Import JSON</label
+                >
+                <input
+                  id="import-json"
+                  type="file"
+                  accept="application/json"
+                  hidden
+                />
+                <button id="export-csv" class="button-secondary">
+                  Export CSV
+                </button>
+                <button id="clear-data" class="button-danger">Clear All</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <small>&copy; 2025 Student Finance Tracker</small>
+      </div>
+    </footer>
+
+    <div
+      id="module-warning"
+      class="module-warning sr-only"
+      role="alert"
+      aria-live="assertive"
+    ></div>
+    <div
+      id="live-region-polite"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      class="sr-only"
+    ></div>
+    <div
+      id="live-region-assertive"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+      class="sr-only"
+    ></div>
+
+    <script type="module" src="scripts/main.js"></script>
+  </body>
+</html>
